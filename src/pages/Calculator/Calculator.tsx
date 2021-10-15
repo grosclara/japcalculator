@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { CSSProperties } from "@material-ui/styles";
 import { CustomTheme } from "../../style/theme";
 import { Button } from "@material-ui/core";
+import LinearProgressWithLabel from "@material-ui/core/LinearProgress";
 
 import kanjiSun from "../../assets/kanji/Kanji sun.svg";
 import kanjiBook from "../../assets/kanji/Kanji book.svg";
@@ -26,7 +27,9 @@ type ClassNames =
   | "scrollContainer"
   | "mainFoodItems"
   | "itemContainer"
+  | "figureContainer"
   | "buttonContainer"
+  | "barContainer"
   | "lateralBar"
   | "barSpacer";
 interface OwnProps {
@@ -77,10 +80,13 @@ export const CalculatorPage: React.FC<Props> = (props: Props) => {
               ))}
             </div>
           </div>
-          <div className={classes.buttonContainer}>
-            <Button variant="contained" onClick={sendData(result)}>
-              {result} Kcal
-            </Button>
+          <div className={classes.figureContainer}>
+            <div className={classes.buttonContainer}>
+              <Button variant="contained" onClick={sendData(result)}>
+                {result} Kcal
+              </Button>
+            </div>
+            < LinearProgressWithLabel className={classes.barContainer} variant="determinate" color="secondary" value={result/700*100} />
           </div>
         </div>
         <div className={classes.lateralBar}>
@@ -177,6 +183,9 @@ const styles = (theme: CustomTheme): Record<ClassNames, CSSProperties> => ({
     alignItems: "flex-end",
     margin: theme.spacing(5),
   },
+  figureContainer: {
+    display: "flex",
+  },
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
@@ -184,6 +193,16 @@ const styles = (theme: CustomTheme): Record<ClassNames, CSSProperties> => ({
     flex: 1,
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
+  },
+  barContainer: {
+    display: "flex",
+    justifyContent: "center",
+    minHeight: 36,
+    flex: 1,
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
   },
   lateralBar: {
     display: "flex",
